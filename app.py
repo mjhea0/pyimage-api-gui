@@ -1,5 +1,6 @@
 import os
 import uuid
+import json
 import requests
 from flask import Flask, render_template, request, url_for, \
     send_from_directory
@@ -22,11 +23,11 @@ def generate_unique_filename(filename):
 
 def call_api(file_url):
     print(str(file_url))
-    url = 'http://api.pyimagesearch.com/face_detection/detect/'
+    url = 'http://api.pyimagesearch.com/face_detection/smart_crop/'
     image = "http://www.pyimagesearch.com/wp-content/uploads/2015/05/obama.jpg"
     payload = {"url": image}
-    r = requests.post(url, data=payload).json()
-    return r
+    r = requests.post(url, data=payload)
+    return json.loads(r.text)
 
 
 # routes
